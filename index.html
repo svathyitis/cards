@@ -1,98 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Grace Cards</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300&family=Pacifico&display=swap');
-
     body {
       margin: 0;
-      padding: 0;
+      font-family: 'Arial', sans-serif;
       background-color: #000;
-      color: #999;
-      font-family: 'Raleway', sans-serif;
-      background-image: repeating-radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 2px),
-                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Ctext x='0' y='20' fill='gray' font-size='18'%3E🀢🀣🀤🀥🀦🀧🀨%3C/text%3E%3C/svg%3E");
-      background-size: 200px 200px;
-      background-repeat: repeat;
+      color: #aaa;
+      overflow-x: hidden;
+      background-image: none;
     }
 
-    header {
-      text-align: center;
-      padding: 2rem 1rem 1rem;
+    .emoji-stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .emoji-stars span {
+      position: absolute;
+      color: #444;
+      font-size: 12px;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
     }
 
     h1 {
-      font-family: 'Raleway', sans-serif;
+      text-align: center;
+      color: grey;
       font-weight: 100;
-      font-size: 2.5rem;
-      color: #ccc;
-      margin-bottom: 0.5rem;
     }
 
     .intent {
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1rem;
-      font-weight: 300;
-      color: #888;
       text-align: center;
-      line-height: 1.6;
-      padding: 0 1rem;
-    }
-
-    section {
-      margin: 2rem auto;
-      max-width: 1200px;
-      padding: 0 1rem;
-    }
-
-    h2 {
-      font-family: 'Pacifico', cursive;
-      font-size: 1.4rem;
-      font-weight: 300;
+      font-style: italic;
+      font-size: 0.9rem;
+      margin: 1rem auto 2rem;
+      max-width: 600px;
       color: #777;
-      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 1rem auto;
+      font-size: 1rem;
+      font-style: italic;
+      color: #888;
     }
 
     .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
     }
 
-    .card-wrapper {
+    .card-container {
+      perspective: 1000px;
       position: relative;
     }
 
-    .heart {
+    .heart-button {
       position: absolute;
-      top: -1rem;
-      right: -1rem;
+      top: -20px;
+      right: 0;
+      color: #666;
       font-size: 1.5rem;
       cursor: pointer;
-      color: #666;
-      transition: transform 0.2s ease, color 0.2s ease;
-    }
-
-    .heart:hover {
-      color: #e60073;
-      transform: scale(1.2);
+      z-index: 5;
     }
 
     .card {
-      perspective: 1000px;
+      width: 220px;
+      height: 300px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+      border: 1px solid transparent;
+      border-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet) 1;
+      border-width: 1px;
+      border-style: solid;
+      border-radius: 10px;
     }
 
     .card-inner {
-      position: relative;
       width: 100%;
-      height: 300px;
-      transition: transform 0.8s;
+      height: 100%;
+      position: absolute;
       transform-style: preserve-3d;
-      cursor: pointer;
     }
 
     .card:hover .card-inner {
@@ -101,105 +108,113 @@
 
     .card-front,
     .card-back {
+      backface-visibility: hidden;
       position: absolute;
       width: 100%;
       height: 100%;
-      backface-visibility: hidden;
-      border: 1px solid;
-      border-radius: 1rem;
-      background-color: rgba(20, 20, 20, 0.7);
-      color: #aaa;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
+      border-radius: 10px;
       padding: 1rem;
-    }
-
-    .card-front {
-      border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 1;
-      border-width: 1px;
+      box-sizing: border-box;
+      background-color: #111;
+      color: #ccc;
     }
 
     .card-back {
       transform: rotateY(180deg);
-      border-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red) 1;
-      border-width: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
     }
 
-    .qr {
+    .card-back img {
       width: 100px;
       height: 100px;
-      background: white;
     }
   </style>
 </head>
+
 <body>
-  <header>
+  <div class="emoji-stars" id="emojiStars"></div>
+  <div class="container">
     <h1>Grace Cards</h1>
-    <p class="intent">
+    <div class="intent">
       Knowledge can overwhelm. Wisdom shouldn’t. That’s why we distill timeless insights into graceful, bite-sized cards — easy to flip, hard to forget. Like Tarot, but truer. Less prediction, more presence. A way to make wisdom now, not someday.
-    </p>
-  </header>
+    </div>
 
-  <section>
-    <h2>Asana Challenge Cards</h2>
+    <div class="section-title">Asana Challenge Cards ♡</div>
     <div class="card-grid">
-      <div class="card-wrapper">
-        <div class="heart">♡</div>
+      <div class="card-container">
+        <div class="heart-button">♡</div>
         <div class="card">
           <div class="card-inner">
-            <div class="card-front">Try Vrikshasana today 🌳</div>
-            <div class="card-back"><img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=asana1" /></div>
+            <div class="card-front">Asana Challenge</div>
+            <div class="card-back">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?data=asana" alt="QR" />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <section>
-    <h2>Chakra Cards (with meditations)</h2>
+    <div class="section-title">Chakra Cards (with meditations) ♡</div>
     <div class="card-grid">
-      <div class="card-wrapper">
-        <div class="heart">♡</div>
+      <div class="card-container">
+        <div class="heart-button">♡</div>
         <div class="card">
           <div class="card-inner">
-            <div class="card-front">Balance your Root Chakra ❤️</div>
-            <div class="card-back"><img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=chakra1" /></div>
+            <div class="card-front">Chakra Energy</div>
+            <div class="card-back">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?data=chakra" alt="QR" />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <section>
-    <h2>Quote Cards</h2>
+    <div class="section-title">Quote Cards ♡</div>
     <div class="card-grid">
-      <div class="card-wrapper">
-        <div class="heart">♡</div>
+      <div class="card-container">
+        <div class="heart-button">♡</div>
         <div class="card">
           <div class="card-inner">
-            <div class="card-front">"The quieter you become, the more you can hear." – Ram Dass</div>
-            <div class="card-back"><img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=quote1" /></div>
+            <div class="card-front">“Be the change.”</div>
+            <div class="card-back">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?data=quote" alt="QR" />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <section>
-    <h2>Knowledge Cards (Tarot Style)</h2>
+    <div class="section-title">Knowledge Cards (Tarot Style) ♡</div>
     <div class="card-grid">
-      <div class="card-wrapper">
-        <div class="heart">♡</div>
+      <div class="card-container">
+        <div class="heart-button">♡</div>
         <div class="card">
           <div class="card-inner">
-            <div class="card-front">Let go. The universe is in charge 🌌</div>
-            <div class="card-back"><img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=knowledge1" /></div>
+            <div class="card-front">Present Moment</div>
+            <div class="card-back">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?data=wisdom" alt="QR" />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+
+  <script>
+    const emojis = ['🀢', '🀣', '🀦', '🀤', '🀥', '🀧', '🀨'];
+    const starCount = 150;
+    const container = document.getElementById('emojiStars');
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('span');
+      star.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      container.appendChild(star);
+    }
+  </script>
 </body>
+
 </html>
