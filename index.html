@@ -46,14 +46,27 @@
       border: 1px solid #444;
       color: #aaa;
       border-radius: 50%;
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       z-index: 10;
+      transition: color 0.3s ease;
+    }
+
+    .heart-btn.liked {
+      color: red;
+    }
+
+    .like-count {
+      position: absolute;
+      top: 25px;
+      right: -10px;
+      font-size: 0.8rem;
+      color: #999;
     }
 
     .card-inner {
@@ -125,30 +138,76 @@
 
 <body>
   <h1>Knowledge Cards (Tarot Style)</h1>
-  <div class="card-container">
-    <div class="card">
-      <div class="heart-btn">♡︎</div>
-      <div class="card-inner">
-        <div class="card-front">
-          <h2 style="margin: 0;">Downward Dog</h2>
-          <p style="margin: 1rem 0; text-align: center;">Strengthens arms and stretches spine.</p>
-          <button class="flip-button">Flip</button>
-        </div>
-        <div class="card-back">
-          <p style="text-align: center;">"Let the pose stretch your mind as it stretches your body."</p>
-          <button class="flip-button">Flip</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <div class="card-container" id="cardContainer"></div>
   <div class="bg-stars"></div>
 
   <script>
+    const cardsData = [
+      {
+        title: "Downward Dog",
+        front: "Strengthens arms and stretches spine.",
+        back: "\"Let the pose stretch your mind as it stretches your body.\""
+      },
+      {
+        title: "Anger",
+        front: "What is anger telling you?",
+        back: "\"Anger is a distortion of your true nature. Let go.\" — SSRVM"
+      },
+      {
+        title: "Sadness",
+        front: "Feeling heavy inside?",
+        back: "\"Sadness is just love standing still. Move it with breath.\" — SSRVM"
+      },
+      {
+        title: "Overachieving",
+        front: "Pushing too hard?",
+        back: "\"Doing too much can tire the mind. Rest and reset.\" — SSRVM"
+      },
+      {
+        title: "Control",
+        front: "Trying to control outcomes?",
+        back: "\"Control is an illusion. Let life flow.\" — SSRVM"
+      }
+    ];
+
+    const container = document.getElementById('cardContainer');
+
+    cardsData.forEach((card, index) => {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'card';
+      cardEl.innerHTML = `
+        <div class="heart-btn" data-index="${index}">♡︎</div>
+        <div class="like-count" id="likeCount${index}">0</div>
+        <div class="card-inner">
+          <div class="card-front">
+            <h2 style="margin: 0;">${card.title}</h2>
+            <p style="margin: 1rem 0; text-align: center;">${card.front}</p>
+            <button class="flip-button">Flip</button>
+          </div>
+          <div class="card-back">
+            <p style="text-align: center;">${card.back}</p>
+            <button class="flip-button">Flip</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(cardEl);
+    });
+
     document.querySelectorAll('.flip-button').forEach(button => {
       button.addEventListener('click', function () {
         const cardInner = this.closest('.card-inner');
         cardInner.style.transform = cardInner.style.transform === 'rotateY(180deg)' ? '' : 'rotateY(180deg)';
+      });
+    });
+
+    const likeCounts = Array(cardsData.length).fill(0);
+
+    document.querySelectorAll('.heart-btn').forEach(button => {
+      button.addEventListener('click', function () {
+        const index = parseInt(this.getAttribute('data-index'));
+        likeCounts[index]++;
+        this.classList.toggle('liked');
+        document.getElementById(`likeCount${index}`).innerText = likeCounts[index];
       });
     });
 
