@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grace Cards</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #ccc;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    header, section, footer {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      color: white;
+    }
+
+    header p {
+      color: #888;
+      font-size: 1.2rem;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      color: white;
+      margin-top: 4rem;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: #111;
+      width: 200px;
+      height: 300px;
+      padding: 1rem;
+      border-radius: 12px;
+      position: relative;
+      color: #ccc;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 3px solid transparent;
+      transition: transform 0.5s;
+    }
+
+    .card:hover {
+      transform: rotateY(180deg);
+    }
+
+    .card.vibgyor-border {
+      border-image: linear-gradient(45deg, violet, indigo, blue, green, yellow, orange, red) 1;
+    }
+
+    .heart {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.2rem;
+      color: #888;
+      cursor: pointer;
+    }
+
+    .btn {
+      background-color: #222;
+      color: #ccc;
+      border: 1px solid #444;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      background-color: #333;
+    }
+
+    footer {
+      font-size: 0.9rem;
+      color: #666;
+      border-top: 1px solid #222;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Grace Cards</h1>
+    <p>Cards Carrying Knowledge</p>
+    <p><em>Knowledge can be too much to consume at once for many. Byte-sized, card-sized wisdom makes it easier. Like Tarot, but truer — making knowledge more NOW.</em></p>
+  </header>
+
+  <section>
+    <h2>Asana Challenge Cards</h2>
+    <div class="cards">
+      <div class="card vibgyor-border">
+        <div class="heart">♥</div>
+        <div>
+          <h3>Downward Dog</h3>
+          <p>Strengthens arms and stretches spine.</p>
+        </div>
+        <button class="btn">Flip</button>
+      </div>
+      <!-- Add more cards as needed -->
+    </div>
+  </section>
+
+  <section>
+    <h2>Chakra Cards (with Meditations)</h2>
+    <div class="cards">
+      <div class="card vibgyor-border">
+        <div class="heart">♥</div>
+        <div>
+          <h3>Root Chakra</h3>
+          <p>Grounding meditation and red energy visual.</p>
+        </div>
+        <button class="btn">Flip</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quote Cards</h2>
+    <div class="cards">
+      <div class="card vibgyor-border">
+        <div class="heart">♥</div>
+        <div>
+          <h3>Wisdom Quote</h3>
+          <p>“In the midst of movement and chaos, keep stillness inside of you.”</p>
+        </div>
+        <button class="btn">Flip</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Knowledge Cards (Tarot Style)</h2>
+    <div class="cards">
+      <div class="card vibgyor-border">
+        <div class="heart">♥</div>
+        <div>
+          <h3>Let Go</h3>
+          <p>Everything changes. Drop the grip.</p>
+        </div>
+        <button class="btn">Flip</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Grace Cards by Vishal Merani</p>
+  </footer>
+</body>
+</html>
