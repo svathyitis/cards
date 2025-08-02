@@ -7,212 +7,160 @@
   <title>Grace Cards</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
       background-color: #000;
       color: #aaa;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
       overflow-x: hidden;
-      background-image: none;
-    }
-
-    .emoji-stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .emoji-stars span {
-      position: absolute;
-      color: #444;
-      font-size: 12px;
-    }
-
-    .container {
-      position: relative;
-      z-index: 2;
-      padding: 2rem;
     }
 
     h1 {
-      text-align: center;
-      color: grey;
-      font-weight: 100;
-    }
-
-    .intent {
-      text-align: center;
+      font-size: 1.5rem;
       font-style: italic;
-      font-size: 0.9rem;
-      margin: 1rem auto 2rem;
-      max-width: 600px;
-      color: #777;
-    }
-
-    .section-title {
+      font-weight: 300;
       text-align: center;
-      margin: 1rem auto;
-      font-size: 1rem;
-      font-style: italic;
-      color: #888;
-    }
-
-    .card-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
+      margin-top: 2rem;
     }
 
     .card-container {
-      perspective: 1000px;
-      position: relative;
-    }
-
-    .heart-button {
-      position: absolute;
-      top: -20px;
-      right: 0;
-      color: #666;
-      font-size: 1.5rem;
-      cursor: pointer;
-      z-index: 5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 2rem;
     }
 
     .card {
-      width: 220px;
-      height: 300px;
       position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.8s;
-      border: 1px solid transparent;
-      border-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet) 1;
-      border-width: 1px;
-      border-style: solid;
-      border-radius: 10px;
+      width: 250px;
+      height: 350px;
+      margin: 1rem;
+      perspective: 1000px;
+    }
+
+    .heart-btn {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      background-color: #111;
+      border: 1px solid #444;
+      color: #aaa;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      z-index: 10;
     }
 
     .card-inner {
+      position: relative;
       width: 100%;
       height: 100%;
-      position: absolute;
       transform-style: preserve-3d;
+      transition: transform 0.8s;
     }
 
     .card:hover .card-inner {
       transform: rotateY(180deg);
     }
 
-    .card-front,
-    .card-back {
-      backface-visibility: hidden;
+    .card-front, .card-back {
       position: absolute;
       width: 100%;
       height: 100%;
-      border-radius: 10px;
-      padding: 1rem;
-      box-sizing: border-box;
+      backface-visibility: hidden;
       background-color: #111;
+      border: 1px solid #444;
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-weight: 300;
       color: #ccc;
+      border-image: linear-gradient(to right, #0ff, #f0f, #ff0, #0f0) 1;
+      border-width: 1px;
+      border-style: solid;
     }
 
     .card-back {
       transform: rotateY(180deg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
     }
 
-    .card-back img {
-      width: 100px;
-      height: 100px;
+    .flip-button {
+      margin-top: 1rem;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid #555;
+      background-color: transparent;
+      color: #aaa;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .bg-stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .bg-stars span {
+      position: absolute;
+      font-size: 6px;
+      color: #333;
+      user-select: none;
     }
   </style>
 </head>
 
 <body>
-  <div class="emoji-stars" id="emojiStars"></div>
-  <div class="container">
-    <h1>Grace Cards</h1>
-    <div class="intent">
-      Knowledge can overwhelm. Wisdom shouldn’t. That’s why we distill timeless insights into graceful, bite-sized cards — easy to flip, hard to forget. Like Tarot, but truer. Less prediction, more presence. A way to make wisdom now, not someday.
-    </div>
-
-    <div class="section-title">Asana Challenge Cards ♡</div>
-    <div class="card-grid">
-      <div class="card-container">
-        <div class="heart-button">♡</div>
-        <div class="card">
-          <div class="card-inner">
-            <div class="card-front">Asana Challenge</div>
-            <div class="card-back">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?data=asana" alt="QR" />
-            </div>
-          </div>
+  <h1>Knowledge Cards (Tarot Style)</h1>
+  <div class="card-container">
+    <div class="card">
+      <div class="heart-btn">♡︎</div>
+      <div class="card-inner">
+        <div class="card-front">
+          <h2 style="margin: 0;">Downward Dog</h2>
+          <p style="margin: 1rem 0; text-align: center;">Strengthens arms and stretches spine.</p>
+          <button class="flip-button">Flip</button>
         </div>
-      </div>
-    </div>
-
-    <div class="section-title">Chakra Cards (with meditations) ♡</div>
-    <div class="card-grid">
-      <div class="card-container">
-        <div class="heart-button">♡</div>
-        <div class="card">
-          <div class="card-inner">
-            <div class="card-front">Chakra Energy</div>
-            <div class="card-back">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?data=chakra" alt="QR" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-title">Quote Cards ♡</div>
-    <div class="card-grid">
-      <div class="card-container">
-        <div class="heart-button">♡</div>
-        <div class="card">
-          <div class="card-inner">
-            <div class="card-front">“Be the change.”</div>
-            <div class="card-back">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?data=quote" alt="QR" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-title">Knowledge Cards (Tarot Style) ♡</div>
-    <div class="card-grid">
-      <div class="card-container">
-        <div class="heart-button">♡</div>
-        <div class="card">
-          <div class="card-inner">
-            <div class="card-front">Present Moment</div>
-            <div class="card-back">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?data=wisdom" alt="QR" />
-            </div>
-          </div>
+        <div class="card-back">
+          <p style="text-align: center;">"Let the pose stretch your mind as it stretches your body."</p>
+          <button class="flip-button">Flip</button>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="bg-stars"></div>
+
   <script>
-    const emojis = ['🀢', '🀣', '🀦', '🀤', '🀥', '🀧', '🀨'];
-    const starCount = 150;
-    const container = document.getElementById('emojiStars');
-    for (let i = 0; i < starCount; i++) {
+    document.querySelectorAll('.flip-button').forEach(button => {
+      button.addEventListener('click', function () {
+        const cardInner = this.closest('.card-inner');
+        cardInner.style.transform = cardInner.style.transform === 'rotateY(180deg)' ? '' : 'rotateY(180deg)';
+      });
+    });
+
+    const bg = document.querySelector('.bg-stars');
+    const icons = ['🀢','🀣','🀦','🀤','🀥','🀧','🀨'];
+    for (let i = 0; i < 150; i++) {
       const star = document.createElement('span');
-      star.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-      star.style.left = Math.random() * 100 + 'vw';
-      star.style.top = Math.random() * 100 + 'vh';
-      container.appendChild(star);
+      star.innerText = icons[Math.floor(Math.random() * icons.length)];
+      star.style.top = `${Math.random() * 100}vh`;
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.transform = `rotate(${Math.random() * 360}deg)`;
+      bg.appendChild(star);
     }
   </script>
 </body>
